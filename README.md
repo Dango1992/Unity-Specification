@@ -58,9 +58,9 @@
 
 7.补充命名规范：
 
-命名空间（name space）：同1类(class)命名，示例：GameFrameWork
-枚举项（enum items）：同6常量(const)命名，示例：MSG_DEFINED_LOGIN
-抽象类（abstract class）： 抽象类命名使用Base开头，示例：BaseManager
-测试类（test class）:测试示例以Test结尾，示例：MoveTest
-派生类（derived class）：派生类要尽量明确基类功能实现，规范命名。示例：ProcedureChangeScene、LuaManager
-...
+命名空间（name space）：同1类(class)命名，示例：GameFrameWork  
+枚举项（enum items）：同6常量(const)命名，示例：MSG_DEFINED_LOGIN  
+抽象类（abstract class）： 抽象类命名使用Base开头，示例：BaseManager 
+测试类（test class）:测试示例以Test结尾，示例：MoveTest 
+派生类（derived class）：派生类要尽量明确基类功能实现，规范命名。示例：ProcedureChangeScene、LuaManager 
+... 
