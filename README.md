@@ -91,55 +91,79 @@
             }
         }
     }
-	
-	## 四：资源规范：
-	
-	0.Prefab中组件命名：
-	
-		(1)文本(Text) 命名前缀：Txt_XXX 示例：Txt_Server
-		
-		(2)图片(Image) 命名前缀：Img_XXX 示例：Img_Player
-		
-		(3)原图(Raw Image) 命名前缀：Texture_XXX 示例：Texture_Bg
-		
-		(4)按钮(Button) 命名前缀：Btn_XXX 示例：Btn_Login
-		
-		(5)选框(Toggle) 命名前缀：Toggle_XXX 示例：Toggle_Server
-		
-		(6)滑动条(Slider) 命名前缀：Slider_XXX 示例：Slider_Progress
-		
-		(7)拖动条(Scrollbar) 命名前缀：Scrollbar_XXX 示例：Scrollbar_Sample
-		
-		(8)拖动框(ScrollView) 命名前缀：ScrollView_XXX 示例：ScrollView_Sample
-		
-		(9)复选框(Dropdown) 命名前缀：Dropdown_XXX 示例：Dropdown_Sample
-		
-		(10)输入框(InputField) 命名前缀：InputField_XXX 示例：InputField_Sample
-	
-	1.避免生成过于复杂的prefab，如果prefab中元素过多尝试切分prefab。Unity中prefab过于复杂在加载过程中容易阻塞主线程，导致短时间假死现象。应该尽量减小prefab的复杂度，个别能够复用的元素尽量复用。可尝试避免一口气加载全部元素，切分prefab分帧或切换状态后加载额外加载子类prefab。
-	
-	2.避免频繁Instantiate和Destroy对象，对于频繁实例化和销毁的对象应该使用ObjectPool将对象复用起来。当前场景状态切换时再回收全部对象，然后调用ReleaseAllUnused()方法释放全部对象。
-	
-	3.UI动静分离。动态UI会造成网格重构，网格重构也是一种高耗性能的操作，建议将UI以Canvas划分拆分为动态UI和静态UI，甚至复杂的UI可拆分为好几个Canvas。但是注意增加Canvas会导致Drawcall增加，虽然现在手机性能的提升几个Drawcall对于手机影响变小，但是尽量还是控制好Canvas不要超过10个。
-	
-	4.如果图集中存在较长UI元素，例如：16*1200的图片，需要将图片切割分为2张16*600图等，做到尽可能充分利用图集的空余空间。
-	
-	5.UI展示大图元素比较多无法打到一张1024*1024图集中，考虑将元素合并到一张背景大图中。例如：活动、充值界面，存在许多大图展示，可考虑让美术将大图元素整合到一张背景大图中。
-	
-	5.当打开多级界面，若界面被完全覆盖,可将被覆盖界面隐藏，防止OverDraw性能损耗，同时若仅仅存在UI界面无需渲染场景的状况，可关闭场景相机，减少性能损耗。
-	
-	6.不同的GPU对于处理像素块的速度是不同的，对于一些低端机型可适当考虑减少分辨率，减少像素块处理的量。
-	
-	7.血条、伤害显示等量大且变化频繁的UI，应当考虑使用SpriteRenderer，同时配合GPU Instancing和MaterialPropertyBlock对材质做操作合并dc。
-	
-	8.Animator设计应当简单明了，避免复杂的网状结构，尽量设计成可通过程序状态机能够快速切换的形式。
-	
-	9.常用颜色应该规范建立色值表，常用文字或公共UI图等应当通过色值表匹配当前适用的颜色。
-	
-	10.原则上UI图片资源应该关闭Mipmap、Read\Write Enable等选项，减少内存消耗。
-	
-	## 四：自检规范：
-	
-	1.代码自检：
-	2.资源冗余自检：
-	3.配置自检：
+
+## 四：资源规范：
+
+1.Prefab中组件命名：
+
+  (1)文本(Text) 命名前缀：Txt_XXX 示例：Txt_Server
+
+  (2)图片(Image) 命名前缀：Img_XXX 示例：Img_Player
+
+  (3)原图(Raw Image) 命名前缀：Texture_XXX 示例：Texture_Bg
+
+  (4)按钮(Button) 命名前缀：Btn_XXX 示例：Btn_Login
+
+  (5)选框(Toggle) 命名前缀：Toggle_XXX 示例：Toggle_Server
+
+  (6)滑动条(Slider) 命名前缀：Slider_XXX 示例：Slider_Progress
+
+  (7)拖动条(Scrollbar) 命名前缀：Scrollbar_XXX 示例：Scrollbar_Sample
+
+  (8)拖动框(ScrollView) 命名前缀：ScrollView_XXX 示例：ScrollView_Sample
+
+  (9)复选框(Dropdown) 命名前缀：Dropdown_XXX 示例：Dropdown_Sample
+
+  (10)输入框(InputField) 命名前缀：InputField_XXX 示例：InputField_Sample
+
+2.场景规范（含UI）：
+
+  (1)Drawcall：均值<300,峰值<350
+  (2)SetPasscall：均值<120,峰值<150
+  (3)Overdraw：均值<2.8x,峰值<3.2X
+
+  (4)面数：	  
+    ①总面数：高端<35W,中端<25W,低端<15W	  
+    ②场景：高端<20W,中端<10W,低端<8W	  
+    ③角色：高端<8k,中端<5k,低端<3k	  
+（以上指标仅供参考，实际上根据游戏类型的不同,模型侧重点也不同，应该权衡各个模型面数，可根据①总面数指标和场景同屏需求设定侧重点。）  
+
+  (5)内存:	  
+    ①总内存：<500MB	  
+    ①Mono堆：<50MB	  
+    ②纹理：<150MB	  
+    ③网格：<50MB	  
+    ④动画：<30M	  
+    ⑤音频：<20MB	  
+
+2.拆分prefab：避免生成过于复杂的prefab，如果prefab中元素过多尝试切分prefab。Unity中prefab过于复杂在加载过程中容易阻塞主线程，导致短时间假死现象。应该尽量减小prefab的复杂度，个别能够复用的元素尽量复用。可尝拆分prefab分帧或切换状态后异步加载子类prefab。
+
+3.使用对象池：避免频繁Instantiate和Destroy对象，对于频繁实例化和销毁的对象应该使用ObjectPool将对象复用起来。当前场景状态切换时再回收全部对象，然后调用ReleaseAllUnused()方法释放全部对象。
+
+4.UI动静分离：动态UI会造成网格重构，网格重构也是一种高耗性能的操作，建议将UI以Canvas划分拆分为动态UI和静态UI，甚至复杂的UI可拆分为好几个Canvas。注意增加Canvas会导致Drawcall增加，虽然现在手机性能的提升几个Drawcall对于手机影响变小，但是尽量还是控制好Canvas不要超过10个。
+
+5.UI切分：如果图集中存在较长UI元素，例如：16*1200的图片，添加到图集将会使用图集扩充到1024*2048，可将图片切割分为2张16*600图等，尽可能充分利用图集的剩余空间。
+
+6.图集整合：除去UI打包图集外，例如花草、岩石、墙壁等存在多套纹理，且不需要太高分辨率的纹理可尝试合并到图集，从而尽可能降低dc。
+
+6.UI整合大图。UI展示大图元素比较多无法打到一张1024*1024图集中，考虑将元素合并到一张背景大图中。例如：活动、充值界面，存在许多大图展示，可考虑让美术将大图元素整合到一张背景大图中。
+
+7.OverDraw。当打开多级界面，若界面被完全覆盖,可将被覆盖界面隐藏，防止OverDraw性能损耗，同时若仅仅存在UI界面无需渲染场景的状况，可关闭场景相机，减少性能损耗。
+
+8.填充率(fill rate) ：不同的GPU对于处理像素块的速度是不同的，对于一些低端机型可适当考虑减少分辨率，减少像素块处理的量。
+
+9.血条、伤害显示等量大且变化频繁的UI，应当考虑使用SpriteRenderer，同时配合GPU Instancing和MaterialPropertyBlock对材质做操作合并dc。
+
+10.Animator设计应当简单明了，避免复杂的网状结构，尽量设计成可通过程序状态机能够快速切换的形式。
+
+11.常用颜色应该规范建立色值表，常用文字或公共UI图等应当通过色值表匹配当前适用的颜色。
+
+12原则上UI图片资源应该关闭Mipmap、Read\Write Enable等选项，减少内存消耗。
+
+## 四：自检规范：
+
+1.代码自检：
+2.资源冗余自检：
+3.配置自检：
+
+未完待续...
