@@ -191,8 +191,7 @@
 
 20.Gpu Instancing:对于大量同材质对象可在Shader中开始Gpu Instancing，例如：血条、浮字伤害因为频繁动态会导致网格重构可考虑，自己写材质配合Gpu Instancing实现，以及SLG中大量小兵、花草树木等。	
 
-21.ECS:ECS和Gpu Instancing是一对好基友，DOTS给我们提供了安全的多线程编程，可用于各种寻路、物理等密集型计算，同时配合Gpu Instancing、Graphics.DrawMeshInstanced，即可实现No GameObject大量物体的渲染，SLG中大规模的战争就是以此基础，配合烘焙模型动画到纹理中的方式实现的。		
-  
+21.ECS:ECS和Gpu Instancing是一对好基友，DOTS给我们提供了安全的多线程编程，可用于各种寻路、物理等密集型计算，同时配合Gpu Instancing、Graphics.DrawMeshInstanced，即可实现No GameObject大量物体的渲染，SLG中大规模的战争就是以此基础，配合烘焙模型动画到纹理中的方式实现的。	
   		
 ## 六：自检规范：  
 
@@ -200,4 +199,22 @@
 2.资源冗余自检：  
 3.配置自检：  
 
-未完待续...（PS：要秃头了QAQ）
+## 七：工具插件：  
+
+1.图集打包：Texture Packer
+2.地形导出：T4M、Mesh Terrain Editor 
+3.网格材质合并：Mesh Baker、
+4.行为树：Behavior Designer、behaviac
+5.特效字图文混排：TextMeshPro
+6.可视化编辑器：XNode
+7.寻路：A Pathfinding Project Pro
+8.UI：FairyGui
+9.Tween动画：DOTween Pro
+10.自动化工具：Jenkins
+11.手势检测：Easy Touch 5
+12.LOD:Automatic LOD
+13.无限列表：Super ScrollView
+14.内嵌网页：UniWebView3
+15.动态骨骼：Dynamic Bone(布料模拟、头发、动态骨骼)
+
+未完待续...（PS：全文先大致列一下，想到什么写什么。要秃头了QAQ）
