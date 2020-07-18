@@ -191,7 +191,11 @@
 
 20.Gpu Instancing:对于大量同材质对象可在Shader中开始Gpu Instancing，例如：血条、浮字伤害因为频繁动态会导致网格重构可考虑，自己写材质配合Gpu Instancing实现，以及SLG中大量小兵、花草树木等。	
 
-21.ECS:ECS和Gpu Instancing是一对好基友，DOTS给我们提供了安全的多线程编程，可用于各种寻路、物理等密集型计算，同时配合Gpu Instancing、Graphics.DrawMeshInstanced，即可实现No GameObject大量物体的渲染，SLG中大规模的战争就是以此基础，配合烘焙模型动画到纹理中的方式实现的。		
+21.ECS:ECS和Gpu Instancing是一对好基友，DOTS给我们提供了安全的多线程编程，可用于各种寻路、物理等密集型计算，同时配合Gpu Instancing、Graphics.DrawMeshInstanced，即可实现No GameObject大量物体的渲染，SLG中大规模的战争就是以此基础，配合烘焙模型动画到纹理中的方式实现的。	  
+
+22.帧同步：  
+
+24.UI生命周期相关：  
   		
 ## 六：自检规范：  
 
