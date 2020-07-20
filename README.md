@@ -140,6 +140,10 @@
     ④动画：<30M	  
     ⑤音频：<20MB	  
 
+3.音频：
+
+4.
+
 ## 五：优化指南：
 
 1.拆分prefab：避免生成过于复杂的prefab，如果prefab中元素过多尝试切分prefab。Unity中prefab过于复杂在加载过程中容易阻塞主线程，导致短时间假死现象。应该尽量减小prefab的复杂度，个别能够复用的元素尽量复用。可尝拆分prefab分帧或切换状态后异步加载子类prefab。
@@ -191,11 +195,19 @@
 
 20.Gpu Instancing:对于大量同材质对象可在Shader中开始Gpu Instancing，例如：血条、浮字伤害因为频繁动态会导致网格重构可考虑，自己写材质配合Gpu Instancing实现，以及SLG中大量小兵、花草树木等。	
 
-21.ECS:ECS和Gpu Instancing是一对好基友，DOTS给我们提供了安全的多线程编程，可用于各种寻路、物理等密集型计算，同时配合Gpu Instancing、Graphics.DrawMeshInstanced，即可实现No GameObject大量物体的渲染，SLG中大规模的战争就是以此基础，配合烘焙模型动画到纹理中的方式实现的。	  
+21.ECS:ECS和Gpu Instancing是一对好基友，DOTS给我们提供了安全的多线程编程，可用于各种寻路、物理等密集型计算，同时配合Gpu Instancing、Graphics.DrawMeshInstanced，即可实现No GameObject大量物体的渲染，SLG中大规模的战争就是以此基础，配合烘焙模型动画到纹理中的方式实现的。  
 
-22.帧同步：  
+22.	UI控件复用：UI虽然有缓存策略以及生命周期策略，不过实例化加载、销毁依旧存在一定损耗，可考虑对控件做对象池，界面控件并非直接销毁，而是Release释放回收到对象池中，当有新界面打开时候，通过数据表数据对UI界面进行自动化布局。  
 
-24.UI生命周期相关：  
+23.生命周期管理：使用MonoBehaviour的生命周期函数存在时序控制比较困难问题，建议使用管理类保留主入口，其他生命周期函数自己编写接口，通过委托注册方法添加到生命周期当中。
+
+24.弱引用：平常使用的引用一般都为强引用，若使用A->B->C->A这种形式对对象引用会导致引用闭环，所有引用对象将无法GC，应该WeakReference断开环链，这样将不会增加引用计数器计数，使对象能够有效被GC。  
+
+25.虚拟文件系统（Virtual File System）:使用虚拟文件系统将碎片文件整合统一集中管理，优化资源加载时内存分配，对局部资源片段加载友好。  
+
+26.虚拟配置表（Virtual Table）：一次性将表中数据加载到内存中将会造成不必要的内存浪费，使用虚拟配置表在内存中仅以哈希表形式维护引用对象的索引值，在真正需要使用时候,通过索引值获取相关对象数据。  
+
+27.虚拟贴图(Virtual Texture):和虚拟配置表原理相似，由于物理内存的瓶颈无法容纳大量的纹理或者是一次加载一张巨大的纹理。例如：一张大世界地形纹理，我们可使用虚拟贴图技术，将纹理分成n*n小块，内存中仅储存纹理索引，真正使用时候获取当前区域范围内的纹理索引，动态加载所需的纹理到内存中。  
   		
 ## 六：自检规范：  
 
@@ -205,20 +217,20 @@
 
 ## 七：工具插件：  
 
-1.图集打包：Texture Packer  
-2.地形导出：T4M、Mesh Terrain Editor  
-3.网格材质合并：Mesh Baker  
-4.行为树：Behavior Designer、behaviac  
-5.特效字图文混排：TextMeshPro  
-6.可视化编辑器：XNode  
-7.寻路：A Pathfinding Project Pro  
-8.UI：FairyGui  
-9.Tween动画：DOTween Pro  
-10.自动化工具：Jenkins  
-11.手势检测：Easy Touch 5  
-12.LOD:Automatic LOD  
-13.无限列表：Super ScrollView  
-14.内嵌网页：UniWebView3  
-15.动态骨骼：Dynamic Bone(布料模拟、头发、动态骨骼)  
+1.图集打包：Texture Packer
+2.地形导出：T4M、Mesh Terrain Editor 
+3.网格材质合并：Mesh Baker、
+4.行为树：Behavior Designer、behaviac
+5.特效字图文混排：TextMeshPro
+6.可视化编辑器：XNode
+7.寻路：A Pathfinding Project Pro
+8.UI：FairyGui
+9.Tween动画：DOTween Pro
+10.自动化工具：Jenkins
+11.手势检测：Easy Touch 5
+12.LOD:Automatic LOD
+13.无限列表：Super ScrollView
+14.内嵌网页：UniWebView3
+15.动态骨骼：Dynamic Bone(布料模拟、头发、动态骨骼)
 
 未完待续...（PS：全文先大致列一下，想到什么写什么。要秃头了QAQ）
