@@ -217,20 +217,20 @@
 
 ## 七：工具插件：  
 
-1.图集打包：Texture Packer
-2.地形导出：T4M、Mesh Terrain Editor 
-3.网格材质合并：Mesh Baker、
-4.行为树：Behavior Designer、behaviac
-5.特效字图文混排：TextMeshPro
-6.可视化编辑器：XNode
-7.寻路：A Pathfinding Project Pro
-8.UI：FairyGui
-9.Tween动画：DOTween Pro
-10.自动化工具：Jenkins
-11.手势检测：Easy Touch 5
-12.LOD:Automatic LOD
-13.无限列表：Super ScrollView
-14.内嵌网页：UniWebView3
-15.动态骨骼：Dynamic Bone(布料模拟、头发、动态骨骼)
+1.图集打包：Texture Packer  
+2.地形导出：T4M、Mesh Terrain Editor  
+3.网格材质合并：Mesh Baker  
+4.行为树：Behavior Designer、behaviac  
+5.特效字图文混排：TextMeshPro  
+6.可视化编辑器：XNode  
+7.寻路：A Pathfinding Project Pro  
+8.UI：FairyGui  
+9.Tween动画：DOTween Pro  
+10.自动化工具：Jenkins  
+11.手势检测：Easy Touch 5  
+12.LOD:Automatic LOD  
+13.无限列表：Super ScrollView  
+14.内嵌网页：UniWebView3  
+15.动态骨骼：Dynamic Bone(布料模拟、头发、动态骨骼)  
 
 未完待续...（PS：全文先大致列一下，想到什么写什么。要秃头了QAQ）
